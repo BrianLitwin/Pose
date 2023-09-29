@@ -13,7 +13,7 @@ height: auto;
 `
 
 async function startVideo() {
-    const video = document.getElementById('video');
+    const video = document.getElementById('video'); // should you be using refs instead of getElementById ?
     video.style = videoStyle
     video.width = WIDTH
     video.height = HEIGHT
@@ -39,7 +39,7 @@ export const Video = () => {
   const [inited, setInited] = useState(false)
 
   useEffect(() => {
-    if (inited !== true) {
+    if (!inited) {
       startVideo()
       setInited(true)
     }
