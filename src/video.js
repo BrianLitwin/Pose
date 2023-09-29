@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import React from 'react';
+import React from 'react'; // didn't think this had to be here
+
 
 const WIDTH = 640
 const HEIGHT = 480
@@ -12,7 +12,7 @@ width: auto;
 height: auto;
 `
 
-async function startVideo() {
+export async function startVideo() {
     const video = document.getElementById('video'); // should you be using refs instead of getElementById ?
     video.style = videoStyle
     video.width = WIDTH
@@ -27,24 +27,10 @@ async function startVideo() {
     canvas.height = HEIGHT
     var ctx = canvas.getContext("2d");
 
-    async function drawVideo() {
-        ctx.drawImage(video, 0, 0, WIDTH, HEIGHT);
-        requestAnimationFrame(drawVideo) // loop
-    }
-
-    drawVideo()
+    return {ctx, video}
 }
 
 export const Video = () => {
-  const [inited, setInited] = useState(false)
-
-  useEffect(() => {
-    if (!inited) {
-      startVideo()
-      setInited(true)
-    }
-  })
-
     return (
         <div>
           <canvas id="canvas"></canvas>
