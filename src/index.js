@@ -1,30 +1,12 @@
 import { createRoot } from 'react-dom/client';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import React from 'react';
 import {Video, startVideo} from './video';
 import { getDetector } from './detector';
-import { drawKeypoints } from './draw'
+import { drawKeypoints } from './draw';
+import { Menu } from './menu';
 
 const CONFIDENCE = 0.3
-
-function drawCircle(x, y, ctx) {
-    const circle = new Path2D();
-    circle.arc(x, y, 5, 0, 2 * Math.PI);
-    ctx.fillStyle = "#3370d4"
-    ctx.fill(circle);
-    ctx.stroke(circle);
-}
-
-export function drawLine(start, end, ctx) {
-    const color = "#3370d4"
-    ctx.fillStyle = color;
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 5
-    ctx.beginPath();
-    ctx.moveTo(start.x, start.y);
-    ctx.lineTo(end.x, end.y);
-    ctx.stroke();
-}
 
 async function start() {
     const {ctx, video} = await startVideo()
@@ -47,15 +29,25 @@ async function start() {
 }
 
 const App = () => {
+    const [selectedPose, setSelectedPose] = useState(null);
 
     useEffect(() => {
         start()
     })
 
+    const makeMenuCheckbox = (desc) => {
+        return {label: desc, onChange: () => setSelectedPose(desc), checked: selectedPose === desc}
+    }
+
+    const menuProps = [
+        makeMenuCheckbox("Ankle dorsiflexion"), makeMenuCheckbox("Hip flexion")
+    ]
+
     return (
             <div>
-                <div>Hello</div>
+                <div>{selectedPose}</div>
                 <Video/>
+                <Menu props={menuProps}/>
             </div>
         )
  };
