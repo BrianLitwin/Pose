@@ -27,6 +27,10 @@ export async function startVideo() {
     canvas.height = HEIGHT
     var ctx = canvas.getContext("2d");
 
+    // flip video
+    ctx.translate(WIDTH, 0);
+    ctx.scale(-1, 1);
+
     return {ctx, video}
 }
 
