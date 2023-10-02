@@ -15,4 +15,15 @@ export function drawKeypoints(keypoints, ctx, confidence) {
     }
 }
 
+export function drawLine(start, end, ctx) {
+    const color = "#3370d4"
+    ctx.fillStyle = color;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 5
+    ctx.beginPath();
+    ctx.moveTo(start.x, start.y);
+    ctx.lineTo(end.x, end.y);
+    ctx.stroke();
+}
+
 
