@@ -66,6 +66,34 @@ const App = () => {
                 }
             }
 
+            if (pose == "Right hip rotation") {
+                const start = body.rightKnee
+                const end = body.rightAnkle
+                if (start.score > CONF & end.score > CONF) {
+                    drawLine(start, end, ctx)
+                    const angle = angleBetweenLines(
+                        {start, end},
+                        {start, end: {x: start.x, y: start.y + 150}} // vertical line
+                    )
+                    drawLine(start, {x: start.x, y: start.y + 150}, ctx)
+                    setMeasure(Math.round(angle))
+                }
+            }
+
+            if (pose == "Left hip rotation") {
+                const start = body.leftKnee
+                const end = body.leftAnkle
+                if (start.score > CONF & end.score > CONF) {
+                    drawLine(start, end, ctx)
+                    const angle = angleBetweenLines(
+                        {start, end},
+                        {start, end: {x: start.x, y: start.y + 150}} // vertical line
+                    )
+                    drawLine(start, {x: start.x, y: start.y + 150}, ctx)
+                    setMeasure(Math.round(angle))
+                }
+            }
+
             // drawKeypoints(poses[0].keypoints, ctx, CONFIDENCE)
         }
 
@@ -84,17 +112,20 @@ const App = () => {
     }
 
     const menuProps = [
-        makeMenuCheckbox("Ankle dorsiflexion"), makeMenuCheckbox("Hip flexion")
+        makeMenuCheckbox("Ankle dorsiflexion"),
+        makeMenuCheckbox("Hip flexion"),
+        makeMenuCheckbox("Right hip rotation"),
+        makeMenuCheckbox("Left hip rotation"),
     ]
 
     return (
-            <div>
-                <div>{pose}</div>
-                <div style={{ fontSize: '125px' }}>{measure}</div>
-                <Video />
-                <Menu props={menuProps}/>
-            </div>
-        )
+        <div>
+            <div>{pose}</div>
+            <div style={{ fontSize: '125px' }}>{measure}</div>
+            <Video />
+            <Menu props={menuProps}/>
+        </div>
+    )
  };
 
  const domNode = document.getElementById('app');
