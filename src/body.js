@@ -1,4 +1,4 @@
-export function KpsToBodyparts(keypoints) {
+export function toBodyparts(keypoints) {
     return {
       nose: keypoints[0],
       leftEye: keypoints[1],
@@ -18,13 +18,4 @@ export function KpsToBodyparts(keypoints) {
       leftAnkle: keypoints[15],
       rightAnkle: keypoints[16],
     }
-}
-
-function rightShinAngle(body) {
-    const start = body.rightAnkle
-
-    return angleBetweenLines(
-        {start, end: body.rightKnee},
-        {start, end: {x: start.x, y: start.y - 50}}
-    )
 }

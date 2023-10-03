@@ -6,7 +6,7 @@ function degrees(radians) {
     return [x2 - x1, y2 - y1];
   }
 
-  function angleBetweenLines(line1, line2) {
+  export function angleBetweenLines(line1, line2) {
     const v1 = createVector(line1.start.x, line1.start.y, line1.end.x, line1.end.y)
     const v2 = createVector(line2.start.x, line2.start.y, line2.end.x, line2.end.y)
     const dot = v1[0] * v2[0] + v1[1] * v2[1];
